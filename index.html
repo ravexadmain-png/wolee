@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WolfWeb - Advanced Website Cloner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        body {
+            background-color: #050505;
+            color: #ff0033;
+            overflow-x: hidden;
+        }
+        /* Cmatrix Overlay */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: black;
+            transition: opacity 1s ease;
+        }
+        .container {
+            display: none;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ff0033;
+            box-shadow: 0 0 20px rgba(255, 0, 51, 0.3);
+            background: rgba(10, 10, 10, 0.95);
+        }
+        pre.ascii-art {
+            color: #ff0033;
+            font-weight: bold;
+            text-align: center;
+            font-size: 12px;
+            line-height: 12px;
+            text-shadow: 0 0 10px rgba(255, 0, 51, 0.7);
+            margin-bottom: 20px;
+        }
+        .meta-info {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+            color: #00ff66;
+        }
+        .meta-info span {
+            color: #ff0033;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ff3366;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            background: #000;
+            border: 1px solid #ff0033;
+            color: #00ff66;
+            font-size: 16px;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            box-shadow: 0 0 10px #ff0033;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #ff0033;
+            color: #000;
+            border: none;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #00ff66;
+            box-shadow: 0 0 15px #00ff66;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Red Cmatrix Animation Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <div class="container" id="main-content">
+        <!-- Wolf ASCII Art -->
+        <pre class="ascii-art">
+ ██      ██  ██████  ██      ███████ ███████ 
+ ██  ██  ██ ██    ██ ██      ██      ██      
+ ██ ████ ██ ██    ██ ██      █████   █████   
+ ████  ████ ██    ██ ██      ██      ██      
+  ██    ██   ██████  ███████ ███████ ███████ 
+        </pre>
+        
+        <div class="meta-info">
+            [ TOOLS: <span>wolferweb</span> ] | [ OPERATOR: <span>algriom</span> ]
+        </div>
+
+        <div class="form-group">
+            <label>[*] ENTER TARGET WEBSITE URL:</label>
+            <input type="text" id="targetUrl" placeholder="https://example.com">
+        </div>
+        <button onclick="startCloning()">Initialize Clone</button>
+
+        <div class="footer">
+            PROFESSIONAL WEB MIRRORING SUITE // SECURE ENCLAVE ACTIVE
+        </div>
+    </div>
+
+    <script>
+        // Red Cmatrix Script
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        const characters = '01ABCDEFHIJKLMNOPQRSTUVWXYZ#$&*@%+-<>';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#ff0033'; // Red color matrix
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        let matrixInterval = setInterval(drawMatrix, 33);
+
+        // Hide Matrix after 3 seconds and show UI
+        setTimeout(() => {
+            clearInterval(matrixInterval);
+            let opacity = 1;
+            let fadeEffect = setInterval(() => {
+                if (opacity > 0) {
+                    opacity -= 0.1;
+                    canvas.style.opacity = opacity;
+                } else {
+                    clearInterval(fadeEffect);
+                    canvas.style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                }
+            }, 50);
+        }, 3000);
+
+        function startCloning() {
+            const url = document.getElementById('targetUrl').value;
+            if(!url) {
+                alert('Please enter a valid URL!');
+                return;
+            }
+            alert('Initializing secure clone sequence for: ' + url);
+        }
+    </script>
+</body>
+</html>
