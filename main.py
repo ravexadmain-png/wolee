@@ -15,7 +15,6 @@ RESET = "\033[0m"
 BOLD = "\033[1m"
 
 def hacker_matrix_animation():
-    # 3 second-er dangerous hacker matrix animation
     os.system('clear' if os.name == 'posix' else 'cls')
     chars = "01ABCDEFHIJKLMNOPQRSTUVWXYZ#$&*@%+-<>\\/|"
     end_time = time.time() + 3  # 3 seconds duration
@@ -27,13 +26,13 @@ def hacker_matrix_animation():
 
 def banner():
     os.system('clear' if os.name == 'posix' else 'cls')
-    print(f"""{RED}
+    print(RED + """
 ██      ██  ██████  ██      ███████ ███████ 
 ██  ██  ██ ██    ██ ██      ██      ██      
 ██ ████ ██ ██    ██ ██      █████   █████   
 ████  ████ ██    ██ ██      ██      ██      
   ██    ██   ██████  ███████ ███████ ███████ 
-    {RESET}")
+    """ + RESET)
     print(f"{GREEN} [+] TOOLS: {BOLD}wolferweb{RESET}")
     print(f"{GREEN} [+] OPERATOR: {BOLD}algriom{RESET}")
     print(f"{YELLOW} [+] STATUS: Dangerous Mode Activated [!] {RESET}\n")
@@ -94,7 +93,6 @@ def clone_website(url):
     print(f"\n{GREEN}[✔] Operation Complete! All assets secured in: {folder_name}{RESET}")
 
 if __name__ == "__main__":
-    # Run dangerous red matrix animation first
     hacker_matrix_animation()
     banner()
     
