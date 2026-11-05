@@ -4,21 +4,30 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 
+# ANSI Color Codes for Professional Hacker Look
+CYAN = "\033[1;36m"
+GREEN = "\033[1;32m"
+RED = "\033[1;31m"
+YELLOW = "\033[1;33m"
+RESET = "\033[0m"
+BOLD = "\033[1m"
+
 def banner():
-    print("""
- ██      ██  ██████  ██      ███████ ███████ 
- ██  ██  ██ ██    ██ ██      ██      ██      
- ██ ████ ██ ██    ██ ██      █████   █████   
- ████  ████ ██    ██ ██      ██      ██      
+    os.system('clear' if os.name == 'posix' else 'cls')
+    print(f"""{CYAN}
+██      ██  ██████  ██      ███████ ███████ 
+██  ██  ██ ██    ██ ██      ██      ██      
+██ ████ ██ ██    ██ ██      █████   █████   
+████  ████ ██    ██ ██      ██      ██      
   ██    ██   ██████  ███████ ███████ ███████ 
-    """)
-    print(" [+] TOOLS: wolferweb")
-    print(" [+] OPERATOR: algriom")
-    print(" [+] STATUS: Professional Suite Active\n")
+    {RESET}""")
+    print(f"{GREEN} [+] TOOLS: {BOLD}wolferweb{RESET}")
+    print(f"{GREEN} [+] OPERATOR: {BOLD}algriom{RESET}")
+    print(f"{YELLOW} [+] STATUS: Professional Suite Active{RESET}\n")
 
 def clone_website(url):
     banner()
-    print(f"[+] Connecting to Target: {url}")
+    print(f"{CYAN}[+] Connecting to Target: {url}{RESET}")
     
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
@@ -27,10 +36,10 @@ def clone_website(url):
     try:
         response = requests.get(url, headers=headers)
         if response.status_code != 200:
-            print(f"[-] Error: Failed to connect. Status Code: {response.status_code}")
+            print(f"{RED}[-] Error: Failed to connect. Status Code: {response.status_code}{RESET}")
             return
     except Exception as e:
-        print(f"[-] Critical Error: {e}")
+        print(f"{RED}[-] Critical Error: {e}{RESET}")
         return
 
     parsed_url = urlparse(url)
@@ -42,7 +51,7 @@ def clone_website(url):
     html_path = os.path.join(folder_name, 'index.html')
     with open(html_path, 'w', encoding='utf-8') as f:
         f.write(response.text)
-    print(f"[+] Core HTML dumped successfully -> {html_path}")
+    print(f"{GREEN}[+] Core HTML dumped successfully -> {html_path}{RESET}")
 
     soup = BeautifulSoup(response.text, 'html.parser')
     resources = {
@@ -51,7 +60,7 @@ def clone_website(url):
         'link': 'href'
     }
 
-    print("[+] Harvesting assets (CSS, JS, Images)...")
+    print(f"{CYAN}[+] Harvesting assets (CSS, JS, Images)...{RESET}")
     for tag, attr in resources.items():
         for element in soup.find_all(tag):
             res_url = element.get(attr)
@@ -69,14 +78,15 @@ def clone_website(url):
                 except Exception:
                     pass
 
-    print(f"\n[✔] Operation Complete! All assets secured in: {folder_name}")
+    print(f"\n{GREEN}[✔] Operation Complete! All assets secured in: {folder_name}{RESET}")
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        target_url = sys.argv[1]
-    else:
-        target_url = input("Enter target website URL: ").strip()
+    banner()
+    target_url = input(f"{YELLOW}[*] Enter target website URL (e.g., https://example.com): {RESET}").strip()
     
-    if not target_url.startswith("http"):
-        target_url = "https://" + target_url
-    clone_website(target_url)
+    if target_url:
+        if not target_url.startswith("http"):
+            target_url = "https://" + target_url
+        clone_website(target_url)
+    else:
+        print(f"{RED}[-] Error: URL cannot be empty!{RESET}")
