@@ -17,7 +17,6 @@ BOLD = "\033[1m"
 def cinematic_hacker_intro():
     os.system('clear' if os.name == 'posix' else 'cls')
     
-    # Phase 1: System Breach Fake Logs
     logs = [
         "Initializing kernel exploit...",
         "Bypassing firewall security layers...",
@@ -33,12 +32,10 @@ def cinematic_hacker_intro():
     time.sleep(0.5)
     os.system('clear' if os.name == 'posix' else 'cls')
 
-    # Phase 2: Matrix Code Rain / Dangerous Intro Animation
     chars = "01ABCDEFHIJKLMNOPQRSTUVWXYZ#$&*@%+-<>\\/|§¶"
-    end_time = time.time() + 3.5  # 3.5 seconds cinematic intro duration
+    end_time = time.time() + 3.5
     
     while time.time() < end_time:
-        # Multi-line random hacking text generator to look like a real terminal stream
         chunk = ""
         for _ in range(3):
             line = "".join(random.choice(chars) for _ in range(50))
@@ -80,11 +77,20 @@ def clone_website(url):
 
     parsed_url = urlparse(url)
     folder_name = parsed_url.netloc.replace(":", "_")
-    if not os.path.exists(folder_name):
-        os.makedirs(folder_name)
-        os.makedirs(os.path.join(folder_name, 'assets'))
+    
+    # Check and setup Phone Storage path (Download Folder)
+    phone_download_path = os.path.expanduser("~/storage/shared/Download")
+    if os.path.exists(phone_download_path):
+        target_dir = os.path.join(phone_download_path, folder_name)
+    else:
+        target_dir = folder_name # Fallback to local if storage permission not given
 
-    html_path = os.path.join(folder_name, 'index.html')
+    assets_dir = os.path.join(target_dir, 'assets')
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir)
+        os.makedirs(assets_dir)
+
+    html_path = os.path.join(target_dir, 'index.html')
     with open(html_path, 'w', encoding='utf-8') as f:
         f.write(response.text)
     print(f"{GREEN}[+] Core HTML dumped successfully -> {html_path}{RESET}")
@@ -108,16 +114,15 @@ def clone_website(url):
                         res_name = os.path.basename(urlparse(res_url).path)
                         if not res_name:
                             continue
-                        res_path = os.path.join(folder_name, 'assets', res_name)
+                        res_path = os.path.join(assets_dir, res_name)
                         with open(res_path, 'wb') as rf:
                             rf.write(res_data.content)
                 except Exception:
                     pass
 
-    print(f"\n{GREEN}[✔] Operation Complete! All assets secured in: {folder_name}{RESET}")
+    print(f"\n{GREEN}[✔] Operation Complete! Saved directly to Phone Storage -> Download/{folder_name}{RESET}")
 
 if __name__ == "__main__":
-    # Run cinematic hacker intro
     cinematic_hacker_intro()
     banner()
     
