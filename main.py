@@ -14,15 +14,39 @@ YELLOW = "\033[1;33m"
 RESET = "\033[0m"
 BOLD = "\033[1m"
 
-def hacker_matrix_animation():
+def cinematic_hacker_intro():
     os.system('clear' if os.name == 'posix' else 'cls')
-    chars = "01ABCDEFHIJKLMNOPQRSTUVWXYZ#$&*@%+-<>\\/|"
-    end_time = time.time() + 3  # 3 seconds duration
+    
+    # Phase 1: System Breach Fake Logs
+    logs = [
+        "Initializing kernel exploit...",
+        "Bypassing firewall security layers...",
+        "Injecting malicious payload into target cluster...",
+        "Establishing encrypted socket connection...",
+        "Access Granted: Welcome to Wolee Secure Enclave..."
+    ]
+    
+    for log in logs:
+        print(f"{RED}[!] {log}{RESET}")
+        time.sleep(0.3)
+    
+    time.sleep(0.5)
+    os.system('clear' if os.name == 'posix' else 'cls')
+
+    # Phase 2: Matrix Code Rain / Dangerous Intro Animation
+    chars = "01ABCDEFHIJKLMNOPQRSTUVWXYZ#$&*@%+-<>\\/|§¶"
+    end_time = time.time() + 3.5  # 3.5 seconds cinematic intro duration
     
     while time.time() < end_time:
-        line = "".join(random.choice(chars) for _ in range(60))
-        print(f"{RED}{line}{RESET}")
-        time.sleep(0.05)
+        # Multi-line random hacking text generator to look like a real terminal stream
+        chunk = ""
+        for _ in range(3):
+            line = "".join(random.choice(chars) for _ in range(50))
+            chunk += f"{RED}{line}{RESET}\n"
+        print(chunk, end="")
+        time.sleep(0.04)
+        
+    os.system('clear' if os.name == 'posix' else 'cls')
 
 def banner():
     os.system('clear' if os.name == 'posix' else 'cls')
@@ -35,7 +59,7 @@ def banner():
     """ + RESET)
     print(f"{GREEN} [+] TOOLS: {BOLD}wolferweb{RESET}")
     print(f"{GREEN} [+] OPERATOR: {BOLD}algriom{RESET}")
-    print(f"{YELLOW} [+] STATUS: Dangerous Mode Activated [!] {RESET}\n")
+    print(f"{YELLOW} [+] STATUS: Elite Hacker Mode Active [!] {RESET}\n")
 
 def clone_website(url):
     banner()
@@ -93,7 +117,8 @@ def clone_website(url):
     print(f"\n{GREEN}[✔] Operation Complete! All assets secured in: {folder_name}{RESET}")
 
 if __name__ == "__main__":
-    hacker_matrix_animation()
+    # Run cinematic hacker intro
+    cinematic_hacker_intro()
     banner()
     
     target_url = input(f"{YELLOW}[*] Enter target website URL (e.g., https://example.com): {RESET}").strip()
