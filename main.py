@@ -1,29 +1,42 @@
 import os
 import sys
+import time
+import random
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 
-# ANSI Color Codes for Professional Hacker Look
-CYAN = "\033[1;36m"
-GREEN = "\033[1;32m"
+# ANSI Color Codes for Hacker Theme
 RED = "\033[1;31m"
+GREEN = "\033[1;32m"
+CYAN = "\033[1;36m"
 YELLOW = "\033[1;33m"
 RESET = "\033[0m"
 BOLD = "\033[1m"
 
+def hacker_matrix_animation():
+    # 3 second-er dangerous hacker matrix animation
+    os.system('clear' if os.name == 'posix' else 'cls')
+    chars = "01ABCDEFHIJKLMNOPQRSTUVWXYZ#$&*@%+-<>\\/|"
+    end_time = time.time() + 3  # 3 seconds duration
+    
+    while time.time() < end_time:
+        line = "".join(random.choice(chars) for _ in range(60))
+        print(f"{RED}{line}{RESET}")
+        time.sleep(0.05)
+
 def banner():
     os.system('clear' if os.name == 'posix' else 'cls')
-    print(f"""{CYAN}
+    print(f"""{RED}
 ██      ██  ██████  ██      ███████ ███████ 
 ██  ██  ██ ██    ██ ██      ██      ██      
 ██ ████ ██ ██    ██ ██      █████   █████   
 ████  ████ ██    ██ ██      ██      ██      
   ██    ██   ██████  ███████ ███████ ███████ 
-    {RESET}""")
+    {RESET}")
     print(f"{GREEN} [+] TOOLS: {BOLD}wolferweb{RESET}")
     print(f"{GREEN} [+] OPERATOR: {BOLD}algriom{RESET}")
-    print(f"{YELLOW} [+] STATUS: Professional Suite Active{RESET}\n")
+    print(f"{YELLOW} [+] STATUS: Dangerous Mode Activated [!] {RESET}\n")
 
 def clone_website(url):
     banner()
@@ -81,7 +94,10 @@ def clone_website(url):
     print(f"\n{GREEN}[✔] Operation Complete! All assets secured in: {folder_name}{RESET}")
 
 if __name__ == "__main__":
+    # Run dangerous red matrix animation first
+    hacker_matrix_animation()
     banner()
+    
     target_url = input(f"{YELLOW}[*] Enter target website URL (e.g., https://example.com): {RESET}").strip()
     
     if target_url:
